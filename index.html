@@ -3,130 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel - Gift Website</title>
+    <title>FREE FIRE REWARDS</title>
     <style>
         body {
             background-color: #121212;
             color: white;
             font-family: Arial, sans-serif;
             margin: 0;
-            padding: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            padding-bottom: 30px;
         }
-        .back-link {
+        .header {
+            text-align: center;
+            padding: 20px 0 10px 0;
+        }
+        .header h1 {
             color: #ff9800;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: bold;
-            align-self: flex-start;
-            margin-bottom: 15px;
+            font-size: 22px;
+            margin: 0 0 5px 0;
+            letter-spacing: 1px;
         }
-        .admin-header {
-            background-color: #1a1a1a;
-            border: 2px solid #ff9800;
-            border-radius: 12px;
-            padding: 15px;
-            width: 100%;
-            max-width: 400px;
-            margin-bottom: 20px;
-            box-sizing: border-box;
-        }
-        .admin-header h2 {
-            color: #ff9800;
-            font-size: 18px;
-            margin: 0 0 8px 0;
-        }
-        .admin-header p {
+        .header p {
+            color: #aaa;
             font-size: 11px;
-            color: #ccc;
             margin: 0;
-            line-height: 1.4;
         }
-        .section-title {
-            color: #ff9800;
-            font-size: 16px;
-            font-weight: bold;
-            align-self: flex-start;
-            margin-bottom: 15px;
-            max-width: 400px;
-            width: 100%;
-        }
-        .item-box {
+        .main-card {
             background-color: #1a1a1a;
             border: 2px solid #ff9800;
-            border-radius: 12px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 380px;
             padding: 15px;
-            width: 100%;
-            max-width: 400px;
-            margin-bottom: 15px;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            align-items: center;
+            box-shadow: 0 0 15px rgba(255, 152, 0, 0.3);
             box-sizing: border-box;
         }
-        .preview-img {
-            width: 50px;
-            height: 50px;
-            background-color: #262626;
-            border-radius: 8px;
-            border: 1px solid #ff9800;
-            object-fit: cover;
-        }
-        .input-group {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-        .input-group label {
-            font-size: 11px;
-            color: #ff9800;
-            font-weight: bold;
-        }
-        .input-group input {
-            background-color: #262626;
-            border: 1px solid #444;
-            border-radius: 6px;
-            color: white;
-            padding: 8px;
-            font-size: 12px;
-            outline: none;
-            width: 100%;
-            box-sizing: border-box;
-        }
-        .save-btn {
+        .sub-header {
             background: linear-gradient(90deg, #ff9800, #ff5722);
             color: white;
-            border: none;
-            border-radius: 20px;
-            padding: 12px;
-            font-size: 15px;
             font-weight: bold;
-            cursor: pointer;
+            font-size: 13px;
+            padding: 8px 15px;
+            border-radius: 20px;
+            margin-bottom: 10px;
             text-align: center;
             width: 100%;
-            max-width: 400px;
-            margin-top: 10px;
+            box-sizing: border-box;
+        }
+        .instruction {
+            font-size: 11px;
+            color: #ccc;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        .rewards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        .reward-item {
+            background-color: #262626;
+            border-radius: 10px;
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: 0.2s;
+        }
+        .reward-item.active {
+            border-color: #ff9800;
+            background-color: #332211;
+        }
+        .reward-item img {
+            width: 100%;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 5px;
+        }
+        .reward-item span {
+            font-size: 10px;
+            color: #ddd;
+            font-weight: bold;
+        }
+        .claim-btn {
+            background: linear-gradient(90deg, #ff9800, #ff5722);
+            color: white;
+            text-align: center;
+            padding: 12px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            display: block;
+            width: 100%;
             box-shadow: 0px 4px 10px rgba(255, 152, 0, 0.4);
+            border: none;
+            cursor: pointer;
+            box-sizing: border-box;
+        }
+        .footer-note {
+            font-size: 10px;
+            color: #888;
+            margin-top: 10px;
+            text-align: center;
+        }
+        .admin-link {
+            display: block;
+            margin-top: 15px;
+            color: #ff9800;
+            font-size: 12px;
+            text-decoration: none;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
 
-    <a href="index.html" class="back-link">← Back to User Panel</a>
-
-    <div class="admin-header">
-        <h2>Admin Panel - Gift Website</h2>
-        <p>Yahan se naam aur Image URL change karke niche 'Save Changes' par click karein.</p>
+    <div class="header">
+        <h1>FREE FIRE REWARDS</h1>
+        <p>👑 DIPAK GAMER</p>
     </div>
 
-    <div class="section-title">Manage 9 Rewards</div>
+    <div class="main-card">
+        <div class="sub-header">🏆 PREMIUM REWARDS COLLECTION</div>
+        <div class="instruction">Select any item below to preview your choice.</div>
 
-    <div id="adminFormContainer">
+        <div class="rewards-grid" id="userGrid">
+            <!-- Dynamically Loaded Items -->
         </div>
 
-    <button class="save-btn" onclick="saveChanges()">SAVE CHANGES</button>
+        <a href="https://1024terabox.com/s/1Janb2wegqWRxGjfHGf0ruA" class="claim-btn">CLAIM NOW</a>
+        <div class="footer-note">Select any reward</div>
+    </div>
+
+    <a href="admin.html" class="admin-link">⚙️ Go to Admin Panel</a>
 
     <script>
         const defaultItems = [
@@ -142,33 +163,21 @@
         ];
 
         let savedItems = JSON.parse(localStorage.getItem('ffRewards')) || defaultItems;
-        const container = document.getElementById('adminFormContainer');
+        const grid = document.getElementById('userGrid');
 
         savedItems.forEach((item, index) => {
-            container.innerHTML += `
-                <div class="item-box">
-                    <img src="${item.img}" class="preview-img" id="prev_${index}" alt="Preview">
-                    <div class="input-group">
-                        <label>Item ${index + 1} Name</label>
-                        <input type="text" id="name_${index}" value="${item.name}">
-                    </div>
-                    <div class="input-group">
-                        <label>Image URL</label>
-                        <input type="text" id="img_${index}" value="${item.img}" oninput="document.getElementById('prev_${index}').src = this.value">
-                    </div>
+            grid.innerHTML += `
+                <div class="reward-item ${index === 0 ? 'active' : ''}" onclick="selectItem(this)">
+                    <img src="${item.img}" alt="Item">
+                    <span>${item.name}</span>
                 </div>
             `;
         });
 
-        function saveChanges() {
-            let updatedItems = [];
-            for (let i = 0; i < 9; i++) {
-                let name = document.getElementById(`name_${i}`).value;
-                let img = document.getElementById(`img_${i}`).value;
-                updatedItems.push({ name: name, img: img });
-            }
-            localStorage.setItem('ffRewards', JSON.stringify(updatedItems));
-            alert("Changes saved successfully! Now check your main website.");
+        function selectItem(element) {
+            const items = document.querySelectorAll('.reward-item');
+            items.forEach(i => i.classList.remove('active'));
+            element.classList.add('active');
         }
     </script>
 
