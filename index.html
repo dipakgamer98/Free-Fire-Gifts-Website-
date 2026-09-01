@@ -31,6 +31,7 @@
             width: 100%;
             max-width: 400px;
             margin-bottom: 20px;
+            box-sizing: border-box;
         }
         .admin-header h2 {
             color: #ff9800;
@@ -63,6 +64,7 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
+            box-sizing: border-box;
         }
         .preview-img {
             width: 50px;
@@ -90,159 +92,85 @@
             padding: 8px;
             font-size: 12px;
             outline: none;
+            width: 100%;
+            box-sizing: border-box;
         }
-        .input-group input:focus {
-            border-color: #ff9800;
-        }
-        .remove-btn {
-            background-color: #8b0000;
+        .save-btn {
+            background: linear-gradient(90deg, #ff9800, #ff5722);
             color: white;
             border: none;
-            border-radius: 6px;
-            padding: 8px;
-            font-size: 12px;
+            border-radius: 20px;
+            padding: 12px;
+            font-size: 15px;
             font-weight: bold;
             cursor: pointer;
             text-align: center;
+            width: 100%;
+            max-width: 400px;
+            margin-top: 10px;
+            box-shadow: 0px 4px 10px rgba(255, 152, 0, 0.4);
         }
     </style>
 </head>
 <body>
 
-    <a href="#" class="back-link">← Back to User Panel</a>
+    <a href="index.html" class="back-link">← Back to User Panel</a>
 
     <div class="admin-header">
         <h2>Admin Panel - Gift Website</h2>
-        <p>Yahan se 1:1 ratio wali images aur unke naam change karein jo user panel par dikhenge.</p>
+        <p>Yahan se naam aur Image URL change karke niche 'Save Changes' par click karein.</p>
     </div>
 
-    <div class="section-title">Manage 1:1 Images</div>
+    <div class="section-title">Manage 9 Rewards</div>
 
-    <!-- Item 1 -->
-    <div class="item-box">
-        <img src="https://i.ibb.co/F4w6kS1D/Picsart-26-08-15-09.jpg" class="preview-img" alt="Preview">
-        <div class="input-group">
-            <label>Item Name</label>
-            <input type="text" value="BUNNY BUNDLE">
+    <div id="adminFormContainer">
         </div>
-        <div class="input-group">
-            <label>Image URL (1:1 Ratio recommended)</label>
-            <input type="text" value="https://i.ibb.co/F4w6kS1D/Picsart-26-08-15-09.jpg">
-        </div>
-        <button class="remove-btn">Remove</button>
-    </div>
 
-    <!-- Item 2 -->
-    <div class="item-box">
-        <img src="https://i.ibb.co/F4w6kS1D/Picsart-26-08-15-09.jpg" class="preview-img" alt="Preview">
-        <div class="input-group">
-            <label>Item Name</label>
-            <input type="text" value="PIRATE FLAG">
-        </div>
-        <div class="input-group">
-            <label>Image URL (1:1 Ratio recommended)</label>
-            <input type="text" value="https://i.ibb.co/F4w6kS1D/Picsart-26-08-15-09.jpg">
-        </div>
-        <button class="remove-btn">Remove</button>
-    </div>
+    <button class="save-btn" onclick="saveChanges()">SAVE CHANGES</button>
 
-    <!-- Item 3 -->
-    <div class="item-box">
-        <img src="https://i.ibb.co/F4w6kS1D/Picsart-26-08-15-09.jpg" class="preview-img" alt="Preview">
-        <div class="input-group">
-            <label>Item Name</label>
-            <input type="text" value="DIAMONDS">
-        </div>
-        <div class="input-group">
-            <label>Image URL (1:1 Ratio recommended)</label>
-            <input type="text" value="https://i.ibb.co/F4w6kS1D/Picsart-26-08-15-09.jpg">
-        </div>
-        <button class="remove-btn">Remove</button>
-    </div>
+    <script>
+        const defaultItems = [
+            { name: "BUNNY BUNDLE", img: "https://i.ibb.co/F4w6kS1D/Picsart-26-08-15-09.jpg" },
+            { name: "PIRATE FLAG", img: "https://i.ibb.co/F4w6kS1D/Picsart-26-08-15-09.jpg" },
+            { name: "DIAMONDS", img: "https://i.ibb.co/F4w6kS1D/Picsart-26-08-15-09.jpg" },
+            { name: "Reward 4", img: "https://i.ibb.co/F4w6kS1D/Picsart-26-08-15-09.jpg" },
+            { name: "Reward 5", img: "https://i.ibb.co/F4w6kS1D/Picsart-26-08-15-09.jpg" },
+            { name: "Reward 6", img: "https://i.ibb.co/F4w6kS1D/Picsart-26-08-15-09.jpg" },
+            { name: "Reward 7", img: "https://i.ibb.co/F4w6kS1D/Picsart-26-08-15-09.jpg" },
+            { name: "Reward 8", img: "https://i.ibb.co/F4w6kS1D/Picsart-26-08-15-09.jpg" },
+            { name: "Reward 9", img: "https://i.ibb.co/F4w6kS1D/Picsart-26-08-15-09.jpg" }
+        ];
 
-    <!-- Item 4 -->
-    <div class="item-box">
-        <img src="https://i.ibb.co/F4w6kS1D/Picsart-26-08-15-09.jpg" class="preview-img" alt="Preview">
-        <div class="input-group">
-            <label>Item Name</label>
-            <input type="text" value="Reward 4">
-        </div>
-        <div class="input-group">
-            <label>Image URL (1:1 Ratio recommended)</label>
-            <input type="text" value="https://i.ibb.co/F4w6kS1D/Picsart-26-08-15-09.jpg">
-        </div>
-        <button class="remove-btn">Remove</button>
-    </div>
+        let savedItems = JSON.parse(localStorage.getItem('ffRewards')) || defaultItems;
+        const container = document.getElementById('adminFormContainer');
 
-    <!-- Item 5 -->
-    <div class="item-box">
-        <img src="https://i.ibb.co/F4w6kS1D/Picsart-26-08-15-09.jpg" class="preview-img" alt="Preview">
-        <div class="input-group">
-            <label>Item Name</label>
-            <input type="text" value="Reward 5">
-        </div>
-        <div class="input-group">
-            <label>Image URL (1:1 Ratio recommended)</label>
-            <input type="text" value="https://i.ibb.co/F4w6kS1D/Picsart-26-08-15-09.jpg">
-        </div>
-        <button class="remove-btn">Remove</button>
-    </div>
+        savedItems.forEach((item, index) => {
+            container.innerHTML += `
+                <div class="item-box">
+                    <img src="${item.img}" class="preview-img" id="prev_${index}" alt="Preview">
+                    <div class="input-group">
+                        <label>Item ${index + 1} Name</label>
+                        <input type="text" id="name_${index}" value="${item.name}">
+                    </div>
+                    <div class="input-group">
+                        <label>Image URL</label>
+                        <input type="text" id="img_${index}" value="${item.img}" oninput="document.getElementById('prev_${index}').src = this.value">
+                    </div>
+                </div>
+            `;
+        });
 
-    <!-- Item 6 -->
-    <div class="item-box">
-        <img src="https://i.ibb.co/F4w6kS1D/Picsart-26-08-15-09.jpg" class="preview-img" alt="Preview">
-        <div class="input-group">
-            <label>Item Name</label>
-            <input type="text" value="Reward 6">
-        </div>
-        <div class="input-group">
-            <label>Image URL (1:1 Ratio recommended)</label>
-            <input type="text" value="https://i.ibb.co/F4w6kS1D/Picsart-26-08-15-09.jpg">
-        </div>
-        <button class="remove-btn">Remove</button>
-    </div>
-
-    <!-- Item 7 -->
-    <div class="item-box">
-        <img src="https://i.ibb.co/F4w6kS1D/Picsart-26-08-15-09.jpg" class="preview-img" alt="Preview">
-        <div class="input-group">
-            <label>Item Name</label>
-            <input type="text" value="Reward 7">
-        </div>
-        <div class="input-group">
-            <label>Image URL (1:1 Ratio recommended)</label>
-            <input type="text" value="https://i.ibb.co/F4w6kS1D/Picsart-26-08-15-09.jpg">
-        </div>
-        <button class="remove-btn">Remove</button>
-    </div>
-
-    <!-- Item 8 -->
-    <div class="item-box">
-        <img src="https://i.ibb.co/F4w6kS1D/Picsart-26-08-15-09.jpg" class="preview-img" alt="Preview">
-        <div class="input-group">
-            <label>Item Name</label>
-            <input type="text" value="Reward 8">
-        </div>
-        <div class="input-group">
-            <label>Image URL (1:1 Ratio recommended)</label>
-            <input type="text" value="https://i.ibb.co/F4w6kS1D/Picsart-26-08-15-09.jpg">
-        </div>
-        <button class="remove-btn">Remove</button>
-    </div>
-
-    <!-- Item 9 -->
-    <div class="item-box">
-        <img src="https://i.ibb.co/F4w6kS1D/Picsart-26-08-15-09.jpg" class="preview-img" alt="Preview">
-        <div class="input-group">
-            <label>Item Name</label>
-            <input type="text" value="Reward 9">
-        </div>
-        <div class="input-group">
-            <label>Image URL (1:1 Ratio recommended)</label>
-            <input type="text" value="https://i.ibb.co/F4w6kS1D/Picsart-26-08-15-09.jpg">
-        </div>
-        <button class="remove-btn">Remove</button>
-    </div>
+        function saveChanges() {
+            let updatedItems = [];
+            for (let i = 0; i < 9; i++) {
+                let name = document.getElementById(`name_${i}`).value;
+                let img = document.getElementById(`img_${i}`).value;
+                updatedItems.push({ name: name, img: img });
+            }
+            localStorage.setItem('ffRewards', JSON.stringify(updatedItems));
+            alert("Changes saved successfully! Now check your main website.");
+        }
+    </script>
 
 </body>
 </html>
