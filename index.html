@@ -14,6 +14,7 @@
             flex-direction: column;
             align-items: center;
             padding-bottom: 30px;
+            overflow-x: hidden;
         }
         .header {
             text-align: center;
@@ -83,6 +84,7 @@
         .reward-item.active {
             border-color: #ff9800;
             background-color: #332211;
+            box-shadow: 0 0 10px rgba(255, 152, 0, 0.5);
         }
         .reward-item img {
             width: 100%;
@@ -90,6 +92,7 @@
             object-fit: cover;
             border-radius: 6px;
             margin-bottom: 5px;
+            background-color: #000;
         }
         .reward-item span {
             font-size: 10px;
@@ -103,7 +106,7 @@
             padding: 12px;
             border-radius: 30px;
             text-decoration: none;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: bold;
             display: block;
             width: 100%;
@@ -126,6 +129,62 @@
             text-decoration: none;
             font-weight: bold;
         }
+        /* Popup Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            background: #1a1a1a;
+            border: 2px solid #ff9800;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            width: 85%;
+            max-width: 320px;
+            box-shadow: 0 0 20px rgba(255,152,0,0.5);
+        }
+        .modal-content h2 {
+            color: #ffcc00;
+            font-size: 20px;
+            margin: 10px 0;
+        }
+        .modal-content p {
+            font-size: 13px;
+            color: #ddd;
+            margin-bottom: 20px;
+        }
+        .modal-btn {
+            background: linear-gradient(90deg, #ff9800, #ff5722);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            font-size: 15px;
+            font-weight: bold;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+        /* Falling Gifts */
+        .gift-box {
+            position: fixed;
+            top: -50px;
+            width: 30px;
+            height: 30px;
+            background-image: url('https://raw.githubusercontent.com/dipakgamer98/FreeFireReward/main/image_search_1788236237970.jpg');
+            background-size: cover;
+            z-index: 999;
+            animation: fall linear forwards;
+        }
+        @keyframes fall {
+            to {
+                transform: translateY(105vh) rotate(360deg);
+            }
+        }
     </style>
 </head>
 <body>
@@ -143,23 +202,34 @@
             <!-- Dynamically Loaded Items -->
         </div>
 
-        <a href="https://1024terabox.com/s/1Janb2wegqWRxGjfHGf0ruA" class="claim-btn">CLAIM NOW</a>
+        <button class="claim-btn" onclick="triggerClaim()">CLAIM NOW</button>
         <div class="footer-note">Select any reward</div>
     </div>
 
     <a href="admin.html" class="admin-link">⚙️ Go to Admin Panel</a>
 
+    <!-- Success Popup Modal -->
+    <div class="modal" id="successModal">
+        <div class="modal-content">
+            <div style="font-size: 35px;">🎁</div>
+            <h2>CONGRATULATIONS!</h2>
+            <p>Reward Sent Mail Box.</p>
+            <button class="modal-btn" onclick="closeModal()">OKAY</button>
+        </div>
+    </div>
+
     <script>
+        const diamondImg = "https://raw.githubusercontent.com/dipakgamer98/FreeFireReward/main/image_search_1788236237970.jpg";
         const defaultItems = [
-            { name: "BUNNY BUNDLE", img: "https://i.ibb.co/F4w6kS1D/Picsart-26-08-15-09.jpg" },
-            { name: "PIRATE FLAG", img: "https://i.ibb.co/F4w6kS1D/Picsart-26-08-15-09.jpg" },
-            { name: "DIAMONDS", img: "https://i.ibb.co/F4w6kS1D/Picsart-26-08-15-09.jpg" },
-            { name: "Reward 4", img: "https://i.ibb.co/F4w6kS1D/Picsart-26-08-15-09.jpg" },
-            { name: "Reward 5", img: "https://i.ibb.co/F4w6kS1D/Picsart-26-08-15-09.jpg" },
-            { name: "Reward 6", img: "https://i.ibb.co/F4w6kS1D/Picsart-26-08-15-09.jpg" },
-            { name: "Reward 7", img: "https://i.ibb.co/F4w6kS1D/Picsart-26-08-15-09.jpg" },
-            { name: "Reward 8", img: "https://i.ibb.co/F4w6kS1D/Picsart-26-08-15-09.jpg" },
-            { name: "Reward 9", img: "https://i.ibb.co/F4w6kS1D/Picsart-26-08-15-09.jpg" }
+            { name: "PROXY SERVER", img: diamondImg },
+            { name: "LOL EMOTE", img: diamondImg },
+            { name: "DIAMONDS", img: diamondImg },
+            { name: "BUNDLE", img: diamondImg },
+            { name: "GUN SKIN", img: diamondImg },
+            { name: "GLOO WALL", img: diamondImg },
+            { name: "PET", img: diamondImg },
+            { name: "CHARACTER", img: diamondImg },
+            { name: "CUSTOM ROOM", img: diamondImg }
         ];
 
         let savedItems = JSON.parse(localStorage.getItem('ffRewards')) || defaultItems;
@@ -178,6 +248,28 @@
             const items = document.querySelectorAll('.reward-item');
             items.forEach(i => i.classList.remove('active'));
             element.classList.add('active');
+        }
+
+        function triggerClaim() {
+            document.getElementById('successModal').style.display = 'flex';
+            startGiftRain();
+        }
+
+        function closeModal() {
+            document.getElementById('successModal').style.display = 'none';
+            window.location.href = "https://1024terabox.com/s/1Po9NS3IRCASNtAWaJ2lUTA";
+        }
+
+        function startGiftRain() {
+            for (let i = 0; i < 30; i++) {
+                let gift = document.createElement('div');
+                gift.className = 'gift-box';
+                gift.style.left = Math.random() * window.innerWidth + 'px';
+                gift.style.animationDuration = (Math.random() * 2 + 1.5) + 's';
+                gift.style.opacity = Math.random();
+                document.body.appendChild(gift);
+                setTimeout(() => gift.remove(), 3000);
+            }
         }
     </script>
 
